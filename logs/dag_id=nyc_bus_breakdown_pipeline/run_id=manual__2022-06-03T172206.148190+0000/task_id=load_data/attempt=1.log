@@ -1,0 +1,67 @@
+[2022-06-03 17:22:17,742] {taskinstance.py:1160} INFO - Dependencies all met for <TaskInstance: nyc_bus_breakdown_pipeline.load_data manual__2022-06-03T17:22:06.148190+00:00 [queued]>
+[2022-06-03 17:22:17,754] {taskinstance.py:1160} INFO - Dependencies all met for <TaskInstance: nyc_bus_breakdown_pipeline.load_data manual__2022-06-03T17:22:06.148190+00:00 [queued]>
+[2022-06-03 17:22:17,754] {taskinstance.py:1357} INFO - 
+--------------------------------------------------------------------------------
+[2022-06-03 17:22:17,755] {taskinstance.py:1358} INFO - Starting attempt 1 of 2
+[2022-06-03 17:22:17,755] {taskinstance.py:1359} INFO - 
+--------------------------------------------------------------------------------
+[2022-06-03 17:22:17,771] {taskinstance.py:1378} INFO - Executing <Task(MsSqlOperator): load_data> on 2022-06-03 17:22:06.148190+00:00
+[2022-06-03 17:22:17,776] {standard_task_runner.py:52} INFO - Started process 319 to run task
+[2022-06-03 17:22:17,779] {standard_task_runner.py:79} INFO - Running: ['***', 'tasks', 'run', 'nyc_bus_breakdown_pipeline', 'load_data', 'manual__2022-06-03T17:22:06.148190+00:00', '--job-id', '147', '--raw', '--subdir', 'DAGS_FOLDER/nycbus_etl.py', '--cfg-path', '/tmp/tmpa07uycnj', '--error-file', '/tmp/tmphtr_2_bk']
+[2022-06-03 17:22:17,780] {standard_task_runner.py:80} INFO - Job 147: Subtask load_data
+[2022-06-03 17:22:17,834] {task_command.py:370} INFO - Running <TaskInstance: nyc_bus_breakdown_pipeline.load_data manual__2022-06-03T17:22:06.148190+00:00 [running]> on host 9212bd95e1cf
+[2022-06-03 17:22:18,048] {taskinstance.py:1572} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_EMAIL=***@example.com
+AIRFLOW_CTX_DAG_OWNER=***
+AIRFLOW_CTX_DAG_ID=nyc_bus_breakdown_pipeline
+AIRFLOW_CTX_TASK_ID=load_data
+AIRFLOW_CTX_EXECUTION_DATE=2022-06-03T17:22:06.148190+00:00
+AIRFLOW_CTX_TRY_NUMBER=1
+AIRFLOW_CTX_DAG_RUN_ID=manual__2022-06-03T17:22:06.148190+00:00
+[2022-06-03 17:22:18,049] {mssql.py:91} INFO - Executing: CREATE TABLE IF NOT EXISTS nyc_bus_breakdowns_and_delays (        Busbreakdown_ID INTEGER PRIMARY KEY,        School_Year TEXT,        Run_Type TEXT,        Bus_No TEXT,        Route_Number TEXT,        Reason TEXT,        Schools_Serviced TEXT,        Occurred_On TIMESTAMP,        Created_On TIMESTAMP,        Boro TEXT,        Bus_Company_Name TEXT,        Minutes_Delayed INTEGER,        Number_Of_Students_On_The_Bus INTEGER,        Has_Contractor_Notified_Schools CHAR(1),         Has_Contractor_Notified_Parents CHAR(1),        Have_You_Alerted_OPT CHAR(1),        Informed_On TIMESTAMP,        Last_Updated_On TIMESTAMP,        Breakdown_or_Running_Late TEXT,        School_Age_or_PreK TEXT);
+        
+        SELECT aws_commons.create_s3_uri(
+        'nycsbus-***',
+        '21_bus_data.csv',
+        'us-east-1'
+        ) AS s3_uri \gset;
+
+        SELECT aws_s3.table_import_from_s3(
+        'nyc_bus_breakdowns_and_delays',
+        '', 
+        '(format csv)',
+        :'s3_uri'
+        );
+        
+[2022-06-03 17:22:18,061] {base.py:68} INFO - Using connection ID 'aws_rds_conn' for task execution.
+[2022-06-03 17:22:18,163] {warnings.py:110} WARNING - /home/***/.local/lib/python3.7/site-packages/***/providers_manager.py:620: DeprecationWarning: The provider apache-***-providers-microsoft-mssql uses `hook-class-names` property in provider-info and has no `connection-types` one. The 'hook-class-names' property has been deprecated in favour of 'connection-types' in Airflow 2.2. Use **both** in case you want to have backwards compatibility with Airflow < 2.2
+  DeprecationWarning,
+
+[2022-06-03 17:22:18,164] {warnings.py:110} WARNING - /home/***/.local/lib/python3.7/site-packages/***/providers_manager.py:620: DeprecationWarning: The provider apache-***-providers-odbc uses `hook-class-names` property in provider-info and has no `connection-types` one. The 'hook-class-names' property has been deprecated in favour of 'connection-types' in Airflow 2.2. Use **both** in case you want to have backwards compatibility with Airflow < 2.2
+  DeprecationWarning,
+
+[2022-06-03 17:22:18,171] {base.py:68} INFO - Using connection ID 'aws_rds_conn' for task execution.
+[2022-06-03 17:23:39,249] {taskinstance.py:1890} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "src/pymssql/_pymssql.pyx", line 646, in pymssql._pymssql.connect
+  File "src/pymssql/_mssql.pyx", line 2108, in pymssql._mssql.connect
+  File "src/pymssql/_mssql.pyx", line 700, in pymssql._mssql.MSSQLConnection.__init__
+  File "src/pymssql/_mssql.pyx", line 1817, in pymssql._mssql.maybe_raise_MSSQLDatabaseException
+  File "src/pymssql/_mssql.pyx", line 1834, in pymssql._mssql.raise_MSSQLDatabaseException
+pymssql._mssql.MSSQLDatabaseException: (20009, b'DB-Lib error message 20009, severity 9:\nUnable to connect: Adaptive Server is unavailable or does not exist (nycbus-db.cjis73z6nngu.us-east-1.rds.amazonaws.com)\nNet-Lib error during Connection refused (111)\nDB-Lib error message 20009, severity 9:\nUnable to connect: Adaptive Server is unavailable or does not exist (nycbus-db.cjis73z6nngu.us-east-1.rds.amazonaws.com)\nNet-Lib error during Connection refused (111)\n')
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/providers/microsoft/mssql/operators/mssql.py", line 94, in execute
+    sql=self.sql, autocommit=self.autocommit, parameters=self.parameters
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/hooks/dbapi.py", line 181, in run
+    with closing(self.get_conn()) as conn:
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/providers/microsoft/mssql/hooks/mssql.py", line 51, in get_conn
+    port=conn.port,
+  File "src/pymssql/_pymssql.pyx", line 652, in pymssql._pymssql.connect
+pymssql._pymssql.OperationalError: (20009, b'DB-Lib error message 20009, severity 9:\nUnable to connect: Adaptive Server is unavailable or does not exist (nycbus-db.cjis73z6nngu.us-east-1.rds.amazonaws.com)\nNet-Lib error during Connection refused (111)\nDB-Lib error message 20009, severity 9:\nUnable to connect: Adaptive Server is unavailable or does not exist (nycbus-db.cjis73z6nngu.us-east-1.rds.amazonaws.com)\nNet-Lib error during Connection refused (111)\n')
+[2022-06-03 17:23:39,293] {taskinstance.py:1401} INFO - Marking task as UP_FOR_RETRY. dag_id=nyc_bus_breakdown_pipeline, task_id=load_data, execution_date=20220603T172206, start_date=20220603T172217, end_date=20220603T172339
+[2022-06-03 17:23:39,314] {standard_task_runner.py:97} ERROR - Failed to execute job 147 for task load_data ((20009, b'DB-Lib error message 20009, severity 9:\nUnable to connect: Adaptive Server is unavailable or does not exist (nycbus-db.cjis73z6nngu.us-east-1.rds.amazonaws.com)\nNet-Lib error during Connection refused (111)\nDB-Lib error message 20009, severity 9:\nUnable to connect: Adaptive Server is unavailable or does not exist (nycbus-db.cjis73z6nngu.us-east-1.rds.amazonaws.com)\nNet-Lib error during Connection refused (111)\n'); 319)
+[2022-06-03 17:23:39,369] {local_task_job.py:156} INFO - Task exited with return code 1
+[2022-06-03 17:23:39,397] {local_task_job.py:273} INFO - 0 downstream tasks scheduled from follow-on schedule check

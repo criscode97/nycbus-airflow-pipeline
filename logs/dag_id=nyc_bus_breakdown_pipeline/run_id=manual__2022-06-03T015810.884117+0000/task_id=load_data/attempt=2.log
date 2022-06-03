@@ -1,0 +1,42 @@
+[2022-06-03 01:58:54,809] {taskinstance.py:1160} INFO - Dependencies all met for <TaskInstance: nyc_bus_breakdown_pipeline.load_data manual__2022-06-03T01:58:10.884117+00:00 [queued]>
+[2022-06-03 01:58:54,836] {taskinstance.py:1160} INFO - Dependencies all met for <TaskInstance: nyc_bus_breakdown_pipeline.load_data manual__2022-06-03T01:58:10.884117+00:00 [queued]>
+[2022-06-03 01:58:54,838] {taskinstance.py:1357} INFO - 
+--------------------------------------------------------------------------------
+[2022-06-03 01:58:54,841] {taskinstance.py:1358} INFO - Starting attempt 2 of 2
+[2022-06-03 01:58:54,842] {taskinstance.py:1359} INFO - 
+--------------------------------------------------------------------------------
+[2022-06-03 01:58:54,884] {taskinstance.py:1378} INFO - Executing <Task(PythonOperator): load_data> on 2022-06-03 01:58:10.884117+00:00
+[2022-06-03 01:58:54,893] {standard_task_runner.py:52} INFO - Started process 479 to run task
+[2022-06-03 01:58:54,901] {standard_task_runner.py:79} INFO - Running: ['***', 'tasks', 'run', 'nyc_bus_breakdown_pipeline', 'load_data', 'manual__2022-06-03T01:58:10.884117+00:00', '--job-id', '124', '--raw', '--subdir', 'DAGS_FOLDER/nycbus_etl.py', '--cfg-path', '/tmp/tmpk2p5dsa_', '--error-file', '/tmp/tmprcatn2qh']
+[2022-06-03 01:58:54,904] {standard_task_runner.py:80} INFO - Job 124: Subtask load_data
+[2022-06-03 01:58:55,016] {task_command.py:370} INFO - Running <TaskInstance: nyc_bus_breakdown_pipeline.load_data manual__2022-06-03T01:58:10.884117+00:00 [running]> on host b7655f13eea6
+[2022-06-03 01:58:55,299] {taskinstance.py:1572} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_EMAIL=***@example.com
+AIRFLOW_CTX_DAG_OWNER=***
+AIRFLOW_CTX_DAG_ID=nyc_bus_breakdown_pipeline
+AIRFLOW_CTX_TASK_ID=load_data
+AIRFLOW_CTX_EXECUTION_DATE=2022-06-03T01:58:10.884117+00:00
+AIRFLOW_CTX_TRY_NUMBER=2
+AIRFLOW_CTX_DAG_RUN_ID=manual__2022-06-03T01:58:10.884117+00:00
+[2022-06-03 01:58:55,303] {s3.py:861} INFO - Downloading source S3 file from Bucket nycsbus-*** with path 22_bus_data.csv
+[2022-06-03 01:58:55,572] {base.py:68} INFO - Using connection ID 's3_conn' for task execution.
+[2022-06-03 01:58:55,575] {base_aws.py:210} INFO - Credentials retrieved from extra_config
+[2022-06-03 01:59:17,528] {taskinstance.py:1890} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 171, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 189, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/etls/loads.py", line 12, in load_csv
+    host='nycbus-db.cjis73z6nngu.us-east-1.rds.amazonaws.com', port='5432'
+  File "/home/airflow/.local/lib/python3.7/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: connection to server at "nycbus-db.cjis73z6nngu.us-east-1.rds.amazonaws.com" (172.31.8.198), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+[2022-06-03 01:59:17,570] {taskinstance.py:1401} INFO - Marking task as FAILED. dag_id=nyc_bus_breakdown_pipeline, task_id=load_data, execution_date=20220603T015810, start_date=20220603T015854, end_date=20220603T015917
+[2022-06-03 01:59:17,605] {standard_task_runner.py:97} ERROR - Failed to execute job 124 for task load_data (connection to server at "nycbus-db.cjis73z6nngu.us-east-1.rds.amazonaws.com" (172.31.8.198), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+; 479)
+[2022-06-03 01:59:17,643] {local_task_job.py:156} INFO - Task exited with return code 1
+[2022-06-03 01:59:17,710] {local_task_job.py:273} INFO - 0 downstream tasks scheduled from follow-on schedule check

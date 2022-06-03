@@ -1,0 +1,41 @@
+[2022-06-02 21:56:09,057] {taskinstance.py:1160} INFO - Dependencies all met for <TaskInstance: nyc_bus_breakdown_pipeline.processing_data manual__2022-06-02T21:56:04.480373+00:00 [queued]>
+[2022-06-02 21:56:09,068] {taskinstance.py:1160} INFO - Dependencies all met for <TaskInstance: nyc_bus_breakdown_pipeline.processing_data manual__2022-06-02T21:56:04.480373+00:00 [queued]>
+[2022-06-02 21:56:09,069] {taskinstance.py:1357} INFO - 
+--------------------------------------------------------------------------------
+[2022-06-02 21:56:09,070] {taskinstance.py:1358} INFO - Starting attempt 1 of 2
+[2022-06-02 21:56:09,070] {taskinstance.py:1359} INFO - 
+--------------------------------------------------------------------------------
+[2022-06-02 21:56:09,085] {taskinstance.py:1378} INFO - Executing <Task(PythonOperator): processing_data> on 2022-06-02 21:56:04.480373+00:00
+[2022-06-02 21:56:09,090] {standard_task_runner.py:52} INFO - Started process 377 to run task
+[2022-06-02 21:56:09,094] {standard_task_runner.py:79} INFO - Running: ['***', 'tasks', 'run', 'nyc_bus_breakdown_pipeline', 'processing_data', 'manual__2022-06-02T21:56:04.480373+00:00', '--job-id', '53', '--raw', '--subdir', 'DAGS_FOLDER/nycbus_etl.py', '--cfg-path', '/tmp/tmps7bwwa3w', '--error-file', '/tmp/tmpwrmb48ot']
+[2022-06-02 21:56:09,095] {standard_task_runner.py:80} INFO - Job 53: Subtask processing_data
+[2022-06-02 21:56:09,150] {task_command.py:370} INFO - Running <TaskInstance: nyc_bus_breakdown_pipeline.processing_data manual__2022-06-02T21:56:04.480373+00:00 [running]> on host 2ac97db4f2c6
+[2022-06-02 21:56:09,222] {taskinstance.py:1572} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_EMAIL=***@example.com
+AIRFLOW_CTX_DAG_OWNER=***
+AIRFLOW_CTX_DAG_ID=nyc_bus_breakdown_pipeline
+AIRFLOW_CTX_TASK_ID=processing_data
+AIRFLOW_CTX_EXECUTION_DATE=2022-06-02T21:56:04.480373+00:00
+AIRFLOW_CTX_TRY_NUMBER=1
+AIRFLOW_CTX_DAG_RUN_ID=manual__2022-06-02T21:56:04.480373+00:00
+[2022-06-02 21:56:09,904] {taskinstance.py:1890} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 171, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 189, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/etls/transformations.py", line 85, in processing_data
+    hook.load_file(filename=df.to_hdf(name, key="df", mode='a', format="table"), key=name, bucket_name=bucket_name)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/core/generic.py", line 2718, in to_hdf
+    encoding=encoding,
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/io/pytables.py", line 312, in to_hdf
+    path_or_buf, mode=mode, complevel=complevel, complib=complib
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/io/pytables.py", line 572, in __init__
+    tables = import_optional_dependency("tables")
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/compat/_optional.py", line 118, in import_optional_dependency
+    raise ImportError(msg) from None
+ImportError: Missing optional dependency 'tables'.  Use pip or conda to install tables.
+[2022-06-02 21:56:09,920] {taskinstance.py:1401} INFO - Marking task as UP_FOR_RETRY. dag_id=nyc_bus_breakdown_pipeline, task_id=processing_data, execution_date=20220602T215604, start_date=20220602T215609, end_date=20220602T215609
+[2022-06-02 21:56:09,934] {standard_task_runner.py:97} ERROR - Failed to execute job 53 for task processing_data (Missing optional dependency 'tables'.  Use pip or conda to install tables.; 377)
+[2022-06-02 21:56:09,989] {local_task_job.py:156} INFO - Task exited with return code 1
+[2022-06-02 21:56:10,112] {local_task_job.py:273} INFO - 0 downstream tasks scheduled from follow-on schedule check

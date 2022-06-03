@@ -1,0 +1,64 @@
+[2022-06-03 19:07:50,841] {taskinstance.py:1160} INFO - Dependencies all met for <TaskInstance: nyc_bus_breakdown_pipeline.send_email_report manual__2022-06-03T19:07:40.871954+00:00 [queued]>
+[2022-06-03 19:07:50,852] {taskinstance.py:1160} INFO - Dependencies all met for <TaskInstance: nyc_bus_breakdown_pipeline.send_email_report manual__2022-06-03T19:07:40.871954+00:00 [queued]>
+[2022-06-03 19:07:50,853] {taskinstance.py:1357} INFO - 
+--------------------------------------------------------------------------------
+[2022-06-03 19:07:50,853] {taskinstance.py:1358} INFO - Starting attempt 1 of 2
+[2022-06-03 19:07:50,853] {taskinstance.py:1359} INFO - 
+--------------------------------------------------------------------------------
+[2022-06-03 19:07:50,870] {taskinstance.py:1378} INFO - Executing <Task(PythonOperator): send_email_report> on 2022-06-03 19:07:40.871954+00:00
+[2022-06-03 19:07:50,875] {standard_task_runner.py:52} INFO - Started process 184 to run task
+[2022-06-03 19:07:50,880] {standard_task_runner.py:79} INFO - Running: ['***', 'tasks', 'run', 'nyc_bus_breakdown_pipeline', 'send_email_report', 'manual__2022-06-03T19:07:40.871954+00:00', '--job-id', '325', '--raw', '--subdir', 'DAGS_FOLDER/nycbus_etl.py', '--cfg-path', '/tmp/tmp1orbl7kz', '--error-file', '/tmp/tmpq209ygjq']
+[2022-06-03 19:07:50,881] {standard_task_runner.py:80} INFO - Job 325: Subtask send_email_report
+[2022-06-03 19:07:50,968] {task_command.py:370} INFO - Running <TaskInstance: nyc_bus_breakdown_pipeline.send_email_report manual__2022-06-03T19:07:40.871954+00:00 [running]> on host 6f91192a153c
+[2022-06-03 19:07:51,252] {taskinstance.py:1572} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_EMAIL=***@example.com
+AIRFLOW_CTX_DAG_OWNER=***
+AIRFLOW_CTX_DAG_ID=nyc_bus_breakdown_pipeline
+AIRFLOW_CTX_TASK_ID=send_email_report
+AIRFLOW_CTX_EXECUTION_DATE=2022-06-03T19:07:40.871954+00:00
+AIRFLOW_CTX_TRY_NUMBER=1
+AIRFLOW_CTX_DAG_RUN_ID=manual__2022-06-03T19:07:40.871954+00:00
+[2022-06-03 19:07:51,979] {warnings.py:110} WARNING - /home/***/.local/lib/python3.7/site-packages/***/utils/email.py:119: PendingDeprecationWarning: Fetching SMTP credentials from configuration variables will be deprecated in a future release. Please set credentials using a connection instead.
+  send_mime_email(e_from=mail_from, e_to=recipients, mime_msg=msg, conn_id=conn_id, dryrun=dryrun)
+
+[2022-06-03 19:07:51,980] {email.py:228} INFO - Email alerting: attempt 1
+[2022-06-03 19:08:22,054] {email.py:228} INFO - Email alerting: attempt 2
+[2022-06-03 19:08:52,153] {email.py:228} INFO - Email alerting: attempt 3
+[2022-06-03 19:09:22,263] {email.py:228} INFO - Email alerting: attempt 4
+[2022-06-03 19:09:52,368] {email.py:228} INFO - Email alerting: attempt 5
+[2022-06-03 19:10:22,508] {taskinstance.py:1890} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.7/smtplib.py", line 392, in getreply
+    line = self.file.readline(_MAXLINE + 1)
+  File "/usr/local/lib/python3.7/socket.py", line 589, in readinto
+    return self._sock.recv_into(b)
+socket.timeout: timed out
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 171, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 189, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/etls/email_reports.py", line 12, in email_callback
+    html_content=quality_report(df),
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/utils/email.py", line 71, in send_email
+    **kwargs,
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/utils/email.py", line 119, in send_email_smtp
+    send_mime_email(e_from=mail_from, e_to=recipients, mime_msg=msg, conn_id=conn_id, dryrun=dryrun)
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/utils/email.py", line 230, in send_mime_email
+    smtp_conn = _get_smtp_connection(smtp_host, smtp_port, smtp_timeout, smtp_ssl)
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/utils/email.py", line 264, in _get_smtp_connection
+    else smtplib.SMTP(host=host, port=port, timeout=timeout)
+  File "/usr/local/lib/python3.7/smtplib.py", line 251, in __init__
+    (code, msg) = self.connect(host, port)
+  File "/usr/local/lib/python3.7/smtplib.py", line 338, in connect
+    (code, msg) = self.getreply()
+  File "/usr/local/lib/python3.7/smtplib.py", line 396, in getreply
+    + str(e))
+smtplib.SMTPServerDisconnected: Connection unexpectedly closed: timed out
+[2022-06-03 19:10:22,527] {taskinstance.py:1401} INFO - Marking task as UP_FOR_RETRY. dag_id=nyc_bus_breakdown_pipeline, task_id=send_email_report, execution_date=20220603T190740, start_date=20220603T190750, end_date=20220603T191022
+[2022-06-03 19:10:22,541] {standard_task_runner.py:97} ERROR - Failed to execute job 325 for task send_email_report (Connection unexpectedly closed: timed out; 184)
+[2022-06-03 19:10:22,553] {local_task_job.py:156} INFO - Task exited with return code 1
+[2022-06-03 19:10:22,579] {local_task_job.py:273} INFO - 0 downstream tasks scheduled from follow-on schedule check
