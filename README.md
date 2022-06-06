@@ -9,6 +9,27 @@ An Automate airflow pipeline for the weekly data extraction of the Bus Breakdown
 ## [Plotly Dashboard](https://nycbusweeklyreport.herokuapp.com/)
 ![nycbusweeklyreport](https://user-images.githubusercontent.com/92554847/172236955-1261b7ca-b773-40d6-9c4d-277e62aefb09.gif)
 
+## App Structure
+│   .env
+│   docker-compose.yaml
+│   weekly_report.py
+│
+├───dags
+│   │   nycbus_etl.py
+│   │
+│   └───etls
+│           email_reports.py
+│           helpers.py
+│           sql_queries.py
+│           transformations.py
+│
+├───logs
+│   ├───dag_processor_manager
+│   │       
+│   └───scheduler
+|
+└───plugins
+
 ## [Data Insights](https://docs.google.com/presentation/d/1SJt3RG8Wf37v_mg00TM423DSFkN3jBYMJPAQ58Zwx_Y/edit?usp=sharing)
 
 ### Data Quality: 
