@@ -31,6 +31,12 @@ An Automate airflow pipeline for the weekly data extraction of the Bus Breakdown
 |
 └───plugins
 ```
+## Technologies
+- Pandas
+- Airflow
+- AWS (S3, RDS Postgres)
+- Dash by Plotly
+- SMTP
 
 ## [Data Insights](https://docs.google.com/presentation/d/1SJt3RG8Wf37v_mg00TM423DSFkN3jBYMJPAQ58Zwx_Y/edit?usp=sharing)
 
