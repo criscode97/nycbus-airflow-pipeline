@@ -6,11 +6,10 @@ An Automate airflow pipeline for the weekly data extraction of the Bus Breakdown
 ## ETL Flow - Weekly
 ![nycbusdag](https://user-images.githubusercontent.com/92554847/172236938-8e23fac9-d893-45d0-bc7b-b0af55fe16f3.gif)
 
-## Plotly Dashboard
+## [Plotly Dashboard](https://nycbusweeklyreport.herokuapp.com/)
 ![nycbusweeklyreport](https://user-images.githubusercontent.com/92554847/172236955-1261b7ca-b773-40d6-9c4d-277e62aefb09.gif)
 
-## Data Insights
-https://docs.google.com/presentation/d/1SJt3RG8Wf37v_mg00TM423DSFkN3jBYMJPAQ58Zwx_Y/edit?usp=sharing
+## [Data Insights](https://docs.google.com/presentation/d/1SJt3RG8Wf37v_mg00TM423DSFkN3jBYMJPAQ58Zwx_Y/edit?usp=sharing)
 
 ### Data Quality: 
 The CSV data has a total of 21 Columns and 495,144 Rows. There were a total of 0 repeated rows found in the file. Three Columns were found to have a significant amount of null values, namely Incident_Number  with 98% null values, How_Long_Delayed with 10.5% null values, and Boro with 2.2%. Column Incident_Number was dropped as the missing data would only take up more memory in the dataset with very little insights to offer for the decision making process.
