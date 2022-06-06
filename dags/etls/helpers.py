@@ -1,5 +1,4 @@
 ## ETL Helper funtions
-
 import pandas as pd
 import numpy as np
 import re
@@ -8,9 +7,9 @@ import re
 # Print custome quality reports using the pandas library
 def quality_report(df):
     r, c = df.shape
-    report = f""" DATA QUALITY REPORT:
-    Columns:{c}
-    Rows:{r}
+    report = f""" DATA QUALITY REPORT:\n
+    Columns:{c}\n
+    Rows:{r}\n
     Number of Null Values per column: \n{df.isna().sum()}")
     Duplicated Rows: {df.duplicated().sum()}"""
     return report
@@ -47,4 +46,4 @@ def regex_checker(string, identifier=route_regex):
 def regex_number_finder(string, regex="(?m)^(\d+).*"):
     pattern = re.compile(regex)
     m = pattern.search(str(string))
-    return m.group(1) if m else string
+    return int(m.group(1)) if m else np.nan

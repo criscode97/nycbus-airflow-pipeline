@@ -68,6 +68,8 @@ def processing_data(ti, key, bucket_name):
 
     # Transform the values in column How_Long_Delayed to keep only the first number string. Here we are assuming that the all if not most inputs were given in minutes
     df["Minutes_Delayed"] = df["how_long_delayed"].apply(lambda x: regex_number_finder(x))
+
+    df = df.drop('how_long_delayed', axis=1)
     
     # all columns will be rename to match the column on the database is renamed to Minutes_Delayed
     df.rename(new_column_names, axis=1, inplace=True)
@@ -81,13 +83,13 @@ def processing_data(ti, key, bucket_name):
 
     # create a new column, "Service type", to collect information based on the Route_Nuber indetifier:
     df["Service_type"]=df["Route_Number"].apply(lambda x: regex_checker(x))
-
+    print(df.columns)
     hook=S3Hook('s3_conn')
     
     with io.BytesIO() as buffer:                                
         buffer.write(
             bytes(
-                df.to_csv(None, sep=",", quotechar='"'),
+                df.to_csv(None, sep="|", quotechar='"'),
                 encoding="utf-8"
             )
         )               
